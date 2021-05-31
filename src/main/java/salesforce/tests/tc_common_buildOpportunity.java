@@ -22,12 +22,11 @@ public class tc_common_buildOpportunity {
 	public static void main(String[] args) {
 		// Pre set up:
 		WebDriverManager.chromedriver().setup();
-		System.out.println(System.getProperty("webdriver.chrome.driver"));
 
 		// Create object of HashMap Class
 		Map<String, Object> prefs = new HashMap<String, Object>();
 
-		// Set the notification setting it will override the default setting
+		// Set the notification setting to overwrite the default setting
 		prefs.put("profile.default_content_setting_values.notifications", 2);
 
 		// Create object of ChromeOption class
@@ -38,7 +37,6 @@ public class tc_common_buildOpportunity {
 
 		ChromeDriver driver = new ChromeDriver(options);
 		JavascriptExecutor js = (JavascriptExecutor) driver;
-//		WebDriverWait wait = new WebDriverWait(driver, 15);
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 
 		// Step1: Login to https://login.salesforce.com
