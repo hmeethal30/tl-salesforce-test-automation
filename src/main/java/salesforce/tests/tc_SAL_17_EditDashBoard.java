@@ -111,6 +111,7 @@ public class tc_SAL_17_EditDashBoard {
 				driver.findElementByXPath("//input[@id='edit-dashboard-title']").sendKeys(Keys.BACK_SPACE);
 				driver.findElementByXPath("//input[@id='edit-dashboard-title']").sendKeys("Salesforce");
 				driver.findElementByXPath("//button[text()='Save']").click();	
+
 	}
 
 }
