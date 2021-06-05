@@ -110,8 +110,7 @@ public class tc_SAL_13_CreateNewDashBoard {
 //		Expected Result
 //		The New Dashboard is created Successfully
 		Assert.assertEquals(strExpectedDshBrdName , strActualDashBoardName);
-		
-
+	
 		
 	}
 
