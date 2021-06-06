@@ -1,4 +1,4 @@
-package salesforce.tests;
+package com.salesforce;
 
 import java.time.Duration;
 import java.util.HashMap;
@@ -17,7 +17,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 
-public class tc_common_buildOpportunity {
+public class BuildOpportunityTest {
 
 	public static void main(String[] args) {
 		// Pre set up:

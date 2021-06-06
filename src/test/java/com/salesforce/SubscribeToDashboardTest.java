@@ -1,4 +1,4 @@
-package salesforce.tests;
+package com.salesforce;
 
 import java.time.Duration;
 import java.util.HashMap;
@@ -16,7 +16,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 
-public class tc_SAL_15_VerifyDashboardSubscribe {
+public class SubscribeToDashboardTest {
 
 	public static void main(String[] args) throws InterruptedException {
 		// set up

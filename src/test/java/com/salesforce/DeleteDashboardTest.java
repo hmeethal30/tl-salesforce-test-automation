@@ -1,4 +1,4 @@
-package salesforce.tests;
+package com.salesforce;
 
 import java.time.Duration;
 import java.util.HashMap;
@@ -6,59 +6,62 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.By.ById;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import com.salesforce.pages.HomePage;
+import com.salesforce.pages.LoginPage;
+
 import io.github.bonigarcia.wdm.WebDriverManager;
-import junit.framework.Assert;
 
-public class tc_SAL_13_CreateNewDashBoard {
-
-	@SuppressWarnings("deprecation")
-	public static void main(String[] args) {
-		String strExpectedDshBrdName = "Salesforce Automation by Haseena";
-
+public class DeleteDashboardTest {
+	
+	public static void main(String[] args) throws InterruptedException {
+		String strUsername = "mercury.bootcamp@testleaf.com";
+		String strPassword = "Bootcamp@123";
+		String LOGIN_PAGE_URL = "https://login.salesforce.com";
+		
+		
 		// set up
 		WebDriverManager.chromedriver().setup();
 		
-		//Code to handle web alerts
 		// Create object of HashMap Class
 		Map<String, Object> prefs = new HashMap<String, Object>();
-
+	
 		// Set the notification setting to overwrite the default setting
 		prefs.put("profile.default_content_setting_values.notifications", 2);
-
+	
 		// Create object of ChromeOption class
 		ChromeOptions options = new ChromeOptions();
-
 		// Set the experimental option
 		options.setExperimentalOption("prefs", prefs);
+		ChromeDriver driver= new ChromeDriver(options);
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 		
 		//Create driver and js executor instances
-		ChromeDriver driver= new ChromeDriver(options);
 		driver.manage().window().maximize();
-		
+	
 		JavascriptExecutor js= (JavascriptExecutor) driver;
 		
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-		
+				
 //		START TEST CASE HERE
 		//	1. Login to https://login.salesforce.com
 		// 1.1 Launch URL
-		driver.get("https://login.salesforce.com");
+		driver.get(LOGIN_PAGE_URL);
 		
 		// 1.2: Locate user id and enter value
 		WebElement txtUsername = driver.findElementById("username");
-		txtUsername.sendKeys("mercury.bootcamp@testleaf.com");
+		txtUsername.sendKeys(strUsername);
 
 		// 1.3: Locate password field and enter value
 		WebElement txtPassword = driver.findElementById("password");
-		txtPassword.sendKeys("Bootcamp$123");
+		txtPassword.sendKeys(strPassword);
 
 		// 1.4: Locate Login button and click on it
 		WebElement btnLogin = driver.findElementById("Login");
@@ -82,36 +85,38 @@ public class tc_SAL_13_CreateNewDashBoard {
 		js.executeScript("arguments[0].scrollIntoView();", linkDashboards);
 		linkDashboards.click();
 		
-		//	4. Click on the New Dashboard option
-		// 4.1 Locate and click on 'New Dashboard'
-		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@title='New Dashboard']")));
-		driver.findElementByXPath("//div[@title='New Dashboard']").click();
-		// 4.2 Wait for 'dashboard' iframme to appear and then switch to it
-		wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath("//iframe[@title='dashboard']")));
+		//Search for the dashboard to be edited
+		String xpathForSearch = "//label[text()='Search recent dashboards...']/../div/input";
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath(xpathForSearch)));
+		WebElement searchBox = driver.findElementByXPath(xpathForSearch);
+		searchBox.click();
+		searchBox.sendKeys("by Haseena");
+		Thread.sleep(2000);
+		String locator_editLinkArrow = "//tbody/tr/td[last()]";
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(locator_editLinkArrow)));
+		driver.findElementByXPath(locator_editLinkArrow).click();
 
-//		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(0));
-		driver.switchTo().frame(driver.findElementByXPath("//iframe[@title='dashboard']"));
+		
+		//Wait for Edit button in the actions drop down
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//span[text()='Edit'])")));
+		driver.findElementByXPath("(//span[text()='Delete'])[1]").click();
+		driver.findElementByXPath("//button/span[text()='Delete']").click();
+		
+		//Search for the dashboard to be edited
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath(xpathForSearch)));
+		searchBox.click();
+		searchBox.clear();
+		searchBox.sendKeys("by Haseena");
+		Thread.sleep(2000);
 
-		
-		//	5. Enter Name as 'Salesforce Automation by Your Name ' and Click on Create.
-		WebElement txtDshBrdName = driver.findElementById("dashboardNameInput");
-		txtDshBrdName.click();
-		txtDshBrdName.sendKeys(strExpectedDshBrdName); //strExpectedDshBrdName
-		
-		//	6.Click on Save and Verify Dashboard name.
-		driver.findElementById("submitBtn").click();
-		wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//span[text()='Add Component']")));
-		
-		WebElement eleDshBrdName = driver.findElementByXPath("//span[contains(@class,'slds-form-element__static slds-grid')]");		
-		String [] arrDahboardText = eleDshBrdName.getText().split("Edit Dashboard name");
-		String strActualDashBoardName = arrDahboardText[0].trim();
-		System.out.println("actual value is: " + strActualDashBoardName);
-		
-//		Expected Result
-//		The New Dashboard is created Successfully
-		Assert.assertEquals(strExpectedDshBrdName , strActualDashBoardName);
-	
-		
+		if(driver.findElementByXPath("//span[text()='No results found']").isDisplayed()){
+	 		   System.out.println("Deletion successful and test is passed");
+	 	   }  
+	 	  else {
+	 		 System.out.println("Deletion unsuccessful and test is failed");
+	 	  }		
 	}
 
+	
+	
 }
