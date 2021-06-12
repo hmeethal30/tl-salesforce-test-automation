@@ -124,14 +124,15 @@ public class ArchitectCertificationsTest {
 		if(driver.getTitle().contains("Certification - Architect Overview"))
 		    System.out.println("Page title contains \"Certification - Architect Overview\" ");
 		else
-		    //Fail
 		    System.out.println("Page title doesn't contain \"Certification - Architect Overview\" ");
 		
-		//	10. Verify the Certifications listed for Architect
+		//	10. Verify/print the Certifications listed for Architect
 		List<WebElement> allCertifications = driver.findElementsByXPath("//div[text()='Certification']/following-sibling::div/a");
 		System.out.println("The available certifications are:");
 		for(WebElement cert : allCertifications) {
 			System.out.println(cert.getText());
+			
+		driver.quit();
 		}		
 	}
 

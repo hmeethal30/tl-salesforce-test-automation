@@ -111,7 +111,7 @@ public class CreateNewDashBoardTest {
 //		The New Dashboard is created Successfully
 		Assert.assertEquals(strExpectedDshBrdName , strActualDashBoardName);
 	
-		
+		driver.quit();
 	}
 
 }
