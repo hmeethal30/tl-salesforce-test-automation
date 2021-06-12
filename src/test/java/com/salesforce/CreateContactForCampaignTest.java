@@ -82,7 +82,7 @@ public class CreateContactForCampaignTest {
 		// 5. Click Bootcamp link
 		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//a[@Title=\"Bootcamp\"])[1]")));
 		driver.findElementByXPath("(//a[@Title=\"Bootcamp\"])[1]").click();
-		Thread.sleep(5000);
+//		Thread.sleep(5000);
 		
 		
 		//	6. Click Add Contact
@@ -160,8 +160,6 @@ public class CreateContactForCampaignTest {
 	    } else {
 	    	System.out.println("New contact is not displayed under Contacts");
 	    }
-
-
 	}
 
 }
