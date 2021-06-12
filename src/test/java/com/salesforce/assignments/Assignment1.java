@@ -130,7 +130,7 @@ public class Assignment1 {
 
 		txtDshBrdDesc.click();
 		txtDshBrdDesc.sendKeys("Testing");
-		driver.findElementByXPath("//button[@Id='submitBtn']");
+		driver.findElementByXPath("//button[@Id='submitBtn']").click();
 		
 		//	11. Click on Done
 		driver.findElementByXPath("//button[text()='Done']").click();
@@ -176,6 +176,9 @@ public class Assignment1 {
  	  driver.findElementByXPath("//button[@title='Close H_Workout']").click();
 		
 //		19. Click on Private Dashboards
+//	    driver.switchTo().defaultContent();
+//	    driver.findElementByXPath("")
+// 	  	//Private Dashboards
 //		20. Verify the newly created Dashboard available
 //		21. Click on dropdown for the item
 //		22. Select Delete
