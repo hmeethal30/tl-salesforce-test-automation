@@ -18,41 +18,33 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class BuildOpportunityTest {
-
-	public static void main(String[] args) {
-		// Pre set up:
+	static String strUsername = "mercury.bootcamp@testleaf.com";
+	static String strPassword = "Bootcamp@123";
+	static String strLoginPageUrl = "https://login.salesforce.com";
+	
+	public static void main(String[] args) throws InterruptedException {
+		// Pre set up for webdriver:
 		WebDriverManager.chromedriver().setup();
 
-		// Create object of HashMap Class
-		Map<String, Object> prefs = new HashMap<String, Object>();
-
 		// Set the notification setting to overwrite the default setting
+		Map<String, Object> prefs = new HashMap<String, Object>();
 		prefs.put("profile.default_content_setting_values.notifications", 2);
-
-		// Create object of ChromeOption class
 		ChromeOptions options = new ChromeOptions();
-
-		// Set the experimental option
 		options.setExperimentalOption("prefs", prefs);
-
+		
 		ChromeDriver driver = new ChromeDriver(options);
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+		driver.manage().timeouts().implicitlyWait(13, TimeUnit.SECONDS);
+
 		JavascriptExecutor js = (JavascriptExecutor) driver;
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 
 		// Step1: Login to https://login.salesforce.com
-		// 1.1: Launch application
-		driver.get("https://login.salesforce.com");
+		driver.get(strLoginPageUrl);
 		driver.manage().window().maximize();
-
-		// 1.2: Locate user id and enter value
 		WebElement txtUsername = driver.findElementById("username");
-//			txtUsername.sendKeys("fullstack@testleaf.com");
-		txtUsername.sendKeys("mercury.bootcamp@testleaf.com");
-
-		// 1.3: Locate password field and enter value
+		txtUsername.sendKeys(strUsername);
 		WebElement txtPassword = driver.findElementById("password");
-//			txtPassword.sendKeys("India@123");
-		txtPassword.sendKeys("Bootcamp$123");
+		txtPassword.sendKeys(strPassword);
 
 		// 1.4: Locate Login button and click on it
 		WebElement btnLogin = driver.findElementById("Login");
@@ -60,42 +52,42 @@ public class BuildOpportunityTest {
 		driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
 
 		// 2. Click on toggle menu button from the left corner
-		// 2.1: Locate ad click on toggle menu
 		WebElement iconToggle = driver.findElementByClassName("slds-icon-waffle");
 		iconToggle.click();
 
 		// 3. Click view All and click Sales from App Launcher
-		// 3.1: Locate ad click view all
 		WebElement btnViewAll = driver.findElementByXPath("//button[text()='View All']");
 		btnViewAll.click();
-
-		// 3.2: Locate ad click Sales
 		WebElement linkSales = driver.findElementByXPath("//p[text()='Sales']");
 		linkSales.click();
 
 		// 4. Click on Content tab
 
 		// 5. Click View All Key Deals in Key Deals
-		// 5.1: Locate and click View All key deals
 		WebElement linkViewAllDeals = driver.findElementByXPath("//span[text()='View All Key Deals']");
 		js.executeScript("arguments[0].scrollIntoView();", linkViewAllDeals);
 		linkViewAllDeals.click();
 
 		// 6. Click the dropdown from Opportunities and select All Opportunities
-		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[@title='Opportunities']/following::span[text()='Opportunities']")));
-		driver.findElementByXPath("//ol//following::span[text()='Recently Viewed' and @data-aura-class='uiOutputText']").click(); 
-		driver.findElementByXPath("//span[text()='All Opportunities' and @class=' virtualAutocompleteOptionText']").click();
-		 
+		wait.until(ExpectedConditions
+				.elementToBeClickable(By.xpath("//a[@title='Opportunities']/following::span[text()='Opportunities']")));
+		driver.findElementByXPath("//ol//following::span[text()='Recently Viewed' and @data-aura-class='uiOutputText']")
+				.click();
+		driver.findElementByXPath("//span[text()='All Opportunities' and @class=' virtualAutocompleteOptionText']")
+				.click();
+		Thread.sleep(2000);
 
 		// 7. Click on New
-//		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@title='New']")));
-		wait.until(ExpectedConditions.elementToBeClickable(By.linkText("New")));
-		WebElement btnNew = driver.findElementByLinkText("New");
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@title='New']/parent::a")));
+		WebElement btnNew = driver.findElementByXPath("//div[@title='New']/parent::a");
 		btnNew.click();
+		Thread.sleep(1000);
 
 		// 8. Give Opportunity Name as SRM Steels
-		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//label[text()='Opportunity Name']/following::input"))); 
-		WebElement txtOpportunity = driver.findElementByXPath("//label[text()='Opportunity Name']/following::input");
+		wait.until(ExpectedConditions
+				.elementToBeClickable(By.xpath("//label[text()='Opportunity Name']/following-sibling::div/input")));
+		WebElement txtOpportunity = driver
+				.findElementByXPath("//label[text()='Opportunity Name']/following-sibling::div/input");
 		txtOpportunity.click();
 		txtOpportunity.sendKeys("SRM Steels");
 
@@ -104,7 +96,7 @@ public class BuildOpportunityTest {
 		WebElement dropdownType = driver.findElementByXPath("//label[text()='Type']/following::input");
 		dropdownType.click();
 		driver.findElementByXPath("//span[text()='New Customer']").click();
-		;
+		
 
 		// 9.2: Locate and select Lead Source as Partner Referral
 		WebElement dropdownLeadSource = driver.findElementByXPath("//label[text() = 'Lead Source']/following::input");
@@ -130,13 +122,11 @@ public class BuildOpportunityTest {
 
 		// 12. Click in Primary Campaign Source and Select first option
 		driver.findElementByXPath("//label[text()='Primary Campaign Source']/following::input").click();
-		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//h3[text()='Recent Campaigns']/ancestor::li//following-sibling::li")));
+		wait.until(ExpectedConditions
+				.elementToBeClickable(By.xpath("//h3[text()='Recent Campaigns']/ancestor::li//following-sibling::li")));
 		driver.findElementByXPath("//h3[text()='Recent Campaigns']/ancestor::li//following-sibling::li").click();
 
 		// 13. Click Save and Verify the SRM Steels opportunity is created
-//			driver.findElementByXPath("//runtime_platform_actions-action-renderer[@title='Save']").click();
 		driver.findElementByXPath("//button[text()='Save']").click();
-		
 	}
-
 }
