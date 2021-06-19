@@ -1,0 +1,33 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+<suite name="Functional TestSuite" parallel="none">
+<parameter name="url" value="https://login.salesforce.com"></parameter>
+<parameter name="username" value="mercury.bootcamp@testleaf.com"></parameter>
+<parameter name="password" value="Bootcamp@123"></parameter>
+
+<test name="SalesForce Chrome Test" verbose="5">
+	<parameter name="browser" value="chrome"></parameter>
+	<classes>
+		<class name="com.salesforce.testngtests.TestNG_ArchCertTestClass"/>
+		<class name="com.salesforce.testngtests.TestNG_BuildOpportunityTestClass"/>
+			<class name="com.salesforce.testngtests.TestNG_BuildOpportunityTestExcel"/>
+<!-- 			<class name="com.salesforce.testngtests.TestNG_CreateContactForCampaignTest"/>
+ -->	</classes>
+</test>
+<test name="SalesForce Chrome Test" verbose="5">
+	<parameter name="browser" value="chrome"></parameter>
+	<classes>
+		<class name="com.salesforce.testngtests.TestNG_ArchCertTestClass"/>
+		<class name="com.salesforce.testngtests.TestNG_BuildOpportunityTestClass"/>
+			<class name="com.salesforce.testngtests.TestNG_BuildOpportunityTestExcel"/>
+<!-- 			<class name="com.salesforce.testngtests.TestNG_CreateContactForCampaignTest"/>
+ -->	</classes>
+</test>
+<!-- <test name="SalesForce firefox Test" verbose="5">
+	<parameter name="browser" value="firefox"></parameter>
+	<classes>
+		<class name="com.salesforce.testngtests.TestNG_ArchCertTestClass"/>
+		<class name="com.salesforce.testngtests.TestNG_BuildOpportunityTestClass"/>
+			<class name="com.salesforce.testngtests.TestNG_CreateContactForCampaignTest"/>
+	</classes>
+</test> -->
+</suite>
