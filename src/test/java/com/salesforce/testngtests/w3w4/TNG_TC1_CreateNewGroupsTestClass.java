@@ -105,5 +105,6 @@ public class TNG_TC1_CreateNewGroupsTestClass extends TestNG_BaseClass{
 	@DataProvider(name = "fetchData")
 	public String[][] sendData(ITestContext context) throws IOException {
   	    String strFile = context.getCurrentXmlTest().getParameter("inputfile");
-		return ReadExcel.readData(strFile);}
+  	    String strSheet = "Create";
+		return ReadExcel.readData(strFile, strSheet);}
 }

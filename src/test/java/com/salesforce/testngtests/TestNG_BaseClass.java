@@ -23,11 +23,7 @@ public class TestNG_BaseClass {
 	public WebDriver driver;
 	public JavascriptExecutor js;
 	public WebDriverWait wait;
-	
-//	static String strUsername = "mercury.bootcamp@testleaf.com";
-//	static String  = "Bootcamp@123";
-//	static String strLoginPageUrl = "https://login.salesforce.com";
-//	
+
 	@Parameters({"url", "username", "password", "browser"})
 	@BeforeMethod
 	public void setUp(String strLoginPageUrl, String strUsername, String strPassword, String strBrowser) {
@@ -45,8 +41,8 @@ public class TestNG_BaseClass {
 			driver = new ChromeDriver(options);
 		}
 		
-		wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-		driver.manage().timeouts().implicitlyWait(13, TimeUnit.SECONDS);
+		wait = new WebDriverWait(driver, Duration.ofSeconds(12));
+		driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
 
 		js = (JavascriptExecutor) driver;
 
@@ -68,9 +64,9 @@ public class TestNG_BaseClass {
 		btnLogin.click();
 	}
 	
-	@AfterMethod public void cleanUp() { 
-		driver.close(); 
-		}
+//	@AfterMethod public void cleanUp() { 
+//		driver.close(); 
+//		}
 
 
 
