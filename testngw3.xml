@@ -14,7 +14,8 @@
 			
 				<!-- <class name="com.salesforce.testngtests.w3w4.TNG_TC1_CreateNewGroupsTestClass" /> -->
 				<!-- <class name="com.salesforce.testngtests.w3w4.TNG_TC2_EditGroupsTestClass"/> -->
-				<class name="com.salesforce.testngtests.w3w4.TNG_TC3_DeleteGroupsTestClass"/>
+				<!-- <class name="com.salesforce.testngtests.w3w4.TNG_TC3_DeleteGroupsTestClass"/> -->
+				<class name="com.salesforce.testngtests.w3w4.TNG_TC4_CreateGroupsWithoutMndatoryTestClass"/>
 
 		</classes>
 	</test> <!-- Test -->

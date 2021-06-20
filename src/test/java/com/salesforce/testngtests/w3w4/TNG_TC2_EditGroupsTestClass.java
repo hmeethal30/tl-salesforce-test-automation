@@ -106,7 +106,6 @@ public class TNG_TC2_EditGroupsTestClass extends TestNG_BaseClass{
 			Assert.assertEquals(strSuccessMessage, strExpectedMsg);
 			System.out.println("Group " + strGroupName + " is edited successfully!");
 		} else if (boolEditGroup){
-
 			System.out.println("New group " + strGroupName + " is NOT edited successfully!");
 		}
 		

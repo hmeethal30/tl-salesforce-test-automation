@@ -64,9 +64,9 @@ public class TestNG_BaseClass {
 		btnLogin.click();
 	}
 	
-//	@AfterMethod public void cleanUp() { 
-//		driver.close(); 
-//		}
+	@AfterMethod public void cleanUp() { 
+		driver.close(); 
+		}
 
 
 
