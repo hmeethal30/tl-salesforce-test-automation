@@ -10,17 +10,12 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class ReadExcel {
 
-	public static String[][] readData(String strFile) throws IOException {
-//		String fileName = "./data/sfdata1.xlsx";
+	public static String[][] readData(String strFile, String strSheet) throws IOException {
 		XSSFWorkbook wb = new XSSFWorkbook(strFile);
-		XSSFSheet ws = wb.getSheet("Sheet1");
+		XSSFSheet ws = wb.getSheet(strSheet);
 		
 		int lastRow = ws.getLastRowNum();
-//		System.out.println("Last row number is: "+ lastRow);
-//		int rowCount =ws.getPhysicalNumberOfRows();
-//		System.out.println("Physical row count is: "+rowCount);
 		int colCount = ws.getRow(0).getLastCellNum();
-//		System.out.println("Column count is: "+ colCount);
 
 		DataFormatter dFormatter = new DataFormatter();
 		
@@ -30,18 +25,12 @@ public class ReadExcel {
 			for (int j = 0; j < colCount; j++) {
 				Cell cell = ws.getRow(i).getCell(j);
 				String cellValue = dFormatter.formatCellValue(cell);
-//				System.out.println("R" + i + "C" + j + ": " + cellValue);
 				data[i-1][j] = cellValue;
 			}
 		}
 		
 		wb.close();
 		return data;
-//		for(int row=0; row< data.length; row++) {
-//			for(int col=0; col < data[row].length; col++) {
-//				System.out.println("data["+row+"]["+col+"]= "+data[row][col]);
-//			}			
-//		}
 	}
 
 }

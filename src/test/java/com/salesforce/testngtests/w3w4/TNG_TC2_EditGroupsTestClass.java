@@ -8,6 +8,8 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.interactions.Coordinates;
+import org.openqa.selenium.interactions.Locatable;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.ITestContext;
@@ -19,7 +21,7 @@ import com.salesforce.testngtests.TestNG_BaseClass;
 
 public class TNG_TC2_EditGroupsTestClass extends TestNG_BaseClass{
   @Test (dataProvider = "fetchData")
-  public void testCreateNewGroups(String strGroupName, String strGroupDescription) throws InterruptedException, AWTException {
+  public void testCreateNewGroups(String strGroupName, String strGroupDescription, String strFontName, String strFontSize) throws InterruptedException, AWTException {
 	  
 		// 2. Click on toggle menu button from the left corner
 		wait.until(ExpectedConditions.elementToBeClickable(By.className("slds-icon-waffle")));
@@ -60,14 +62,25 @@ public class TNG_TC2_EditGroupsTestClass extends TestNG_BaseClass{
 		WebElement inptDescription = driver.findElement(By.xpath("//span[text()='Description']/parent::label/following-sibling::textarea"));
 		wait.until(ExpectedConditions.visibilityOf(inptDescription));
 		inptDescription.click();
+		inptDescription.clear();
 		inptDescription.sendKeys(strGroupDescription);
 		
 		//	8.In Information field, change the font into Verdana and Change the font size to 18
+		String xpathFontName = "//span[text()='" + strFontName + "']";			//"//span[text()='Verdana']"
 		driver.findElement(By.xpath("//label[text()='Font']//following::input[@name='font']")).click();
-		driver.findElement(By.xpath("//span[text()='Verdana']")).click();
+		driver.findElement(By.xpath(xpathFontName)).click();
 		driver.findElement(By.xpath("//label[text()='Font Size']//following::input[@name='font-size']")).click();
-		driver.findElement(By.xpath("//span[text()='18']")).click();
 		
+//		WebElement elemFontSize = driver.findElement(By.xpath("//label[text()='Font Size']//following::input[@name='font-size']"));
+		String xpathFontSizeParent = "//span[text()='" + strFontSize + "']/../../..";		//"//span[text()='18']/../../.."
+		WebElement elemFontSize = driver.findElement(By.xpath(xpathFontSizeParent));
+		Coordinates cordFontSize = ((Locatable)elemFontSize).getCoordinates();
+		cordFontSize.onPage();
+		cordFontSize.inViewPort();
+		Thread.sleep(1000);
+		
+		String xpathFontSize = "//span[text()='" + strFontSize + "']";		//"//span[text()='18']"
+		driver.findElement(By.xpath(xpathFontSize)).click();
 		
 		Actions scrollDown= new Actions(driver);
 	    scrollDown.sendKeys(Keys.PAGE_DOWN).perform();
@@ -87,7 +100,7 @@ public class TNG_TC2_EditGroupsTestClass extends TestNG_BaseClass{
 		WebElement elemSuccessMsg = driver.findElement(By.xpath("//span[text()='success']/../following-sibling::div/div/span"));
 		String strExpectedMsg = "Group \"" + strGroupName + "\" was saved.";
 		Boolean boolEditGroup = elemSuccessMsg.isDisplayed();
-		if (!boolEditGroup) {
+		if (boolEditGroup) {
 			String strSuccessMessage = elemSuccessMsg.getText();
 			System.out.println(strSuccessMessage);
 			Assert.assertEquals(strSuccessMessage, strExpectedMsg);
