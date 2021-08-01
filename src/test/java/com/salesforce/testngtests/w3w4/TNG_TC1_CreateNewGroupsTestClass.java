@@ -5,8 +5,8 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-import com.salesforce.testngtests.ReadExcel;
-import com.salesforce.testngtests.TestNG_BaseClass;
+import com.salesforce.test.setup.classes.TestNG_BaseClass;
+import com.salesforce.utilities.classes.ReadExcel;
 
 import java.awt.AWTException;
 import java.awt.Robot;

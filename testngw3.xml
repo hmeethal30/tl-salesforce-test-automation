@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 <suite name="GroupsSuite">
-	<parameter name="url" value="https://login.salesforce.com"></parameter>
 	<parameter name="username"
 		value="mercury.bootcamp@testleaf.com"></parameter>
 	<parameter name="password" value="Bootcamp@123"></parameter>
@@ -13,10 +12,11 @@
 		<classes>
 			
 				<!-- <class name="com.salesforce.testngtests.w3w4.TNG_TC1_CreateNewGroupsTestClass" /> -->
+				<class name="com.salesforce.testngtests.w3w4.TNG_TC1_CreateGroupsTestClassPF" />
 				<!-- <class name="com.salesforce.testngtests.w3w4.TNG_TC2_EditGroupsTestClass"/> -->
 				<!-- <class name="com.salesforce.testngtests.w3w4.TNG_TC3_DeleteGroupsTestClass"/> -->
-				<class name="com.salesforce.testngtests.w3w4.TNG_TC4_CreateGroupsWithoutMndatoryTestClass"/>
-
+				<!-- <class name="com.salesforce.testngtests.w3w4.TNG_TC4_CreateGroupsWithoutMndatoryTestClass"/>
+ -->
 		</classes>
 	</test> <!-- Test -->
 </suite> <!-- Suite -->

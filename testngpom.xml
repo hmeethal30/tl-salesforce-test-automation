@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Suite">
+
+  <test thread-count="2" name="TestGroupsOnChrome" parallel = "classes" verbose="5">
+    <classes>
+      <!-- <class name="com.salesforce.pom.test.classes.TNG_TC1_CreateGroupPomTestClass"/> -->
+      <!-- <class name="com.salesforce.pom.test.classes.TNG_TC2_EditGroupPomTestClass"/> -->
+      <!-- <class name="com.salesforce.pom.test.classes.TNG_TC3_DeleteGroupPomTestClass"/> -->
+      <class name="com.salesforce.pom.test.classes.TNG_TC4_CreateGroupWithoutMndatoryFieldsTestClass" />
+    </classes>
+  </test> <!-- Test -->
+  
+</suite> <!-- Suite -->
